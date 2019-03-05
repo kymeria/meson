@@ -1128,10 +1128,11 @@ class Compiler:
                 else:
                     self.compiler_check_cache[key] = p
                 yield p
-        except (PermissionError, OSError):
+        except (PermissionError, OSError) as e:
             # On Windows antivirus programs and the like hold on to files so
             # they can't be deleted. There's not much to do in this case. Also,
             # catch OSError because the directory is then no longer empty.
+            mlog.error('Compile exception:\n', e)
             pass
 
     def get_colorout_args(self, colortype):
